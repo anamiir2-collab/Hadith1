@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الحديث التحليلي - الجزء الأول</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--gold:#C8A24D;--gold-light:#E8D48B;--gold-dark:#9A7B2D;
+--blue-deep:#0D1B2A;--blue-mid:#1B3A5C;--blue-light:#2E5A88;
+--cream:#FDF8EE;--cream-dark:#F5ECD7;
+--terracotta:#B85C38;--burgundy:#6B1D2A;--burgundy-light:#8B2D3A;
+--white:#FFFFFF;
+--shadow:0 8px 32px rgba(13,27,42,0.18);
+--shadow-hover:0 12px 48px rgba(13,27,42,0.28);
+}
+body{
+font-family:'Noto Naskh Arabic','Amiri',serif;
+background:var(--blue-deep);
+color:var(--cream);
+min-height:100vh;
+line-height:1.9;
+}
+body::before{
+content:'';position:fixed;top:0;left:0;right:0;bottom:0;
+background:
+repeating-linear-gradient(45deg,transparent,transparent 35px,rgba(200,162,77,0.03) 35px,rgba(200,162,77,0.03) 36px),
+repeating-linear-gradient(-45deg,transparent,transparent 35px,rgba(200,162,77,0.03) 35px,rgba(200,162,77,0.03) 36px);
+pointer-events:none;z-index:0;
+}
+.container{max-width:960px;margin:0 auto;padding:40px 20px 80px;position:relative;z-index:1;}
+
+/* ===== LEGEND ===== */
+.legend{
+display:flex;justify-content:center;gap:24px;flex-wrap:wrap;
+padding:16px 24px;margin-bottom:40px;
+background:rgba(27,58,92,0.6);
+border:1px solid rgba(200,162,77,0.15);
+border-radius:14px;
+}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:0.9em;}
+.legend-dot{width:14px;height:14px;border-radius:4px;}
+.legend-dot.mem{background:linear-gradient(135deg,#C8A24D,#E8C65A);box-shadow:0 0 8px rgba(200,162,77,0.4);}
+.legend-dot.sub{background:rgba(46,90,136,0.5);border:1px solid rgba(46,90,136,0.6);}
+.legend-label{opacity:0.8;}
+
+/* ===== HEADER ===== */
+.header{text-align:center;padding:60px 30px 50px;margin-bottom:50px;position:relative;}
+.header-ornament{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:24px;}
+.header-line{width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.header-diamond{width:12px;height:12px;background:var(--gold);transform:rotate(45deg);}
+.header h1{font-family:'Amiri',serif;font-size:2.8em;color:var(--gold);text-shadow:0 2px 20px rgba(200,162,77,0.3);letter-spacing:2px;margin-bottom:12px;}
+.header h2{font-size:1.3em;color:var(--gold-light);font-weight:400;opacity:0.85;}
+.header-badge{display:inline-block;margin-top:20px;padding:8px 32px;border:1px solid var(--gold-dark);border-radius:50px;color:var(--gold-light);font-size:0.9em;letter-spacing:1px;background:rgba(200,162,77,0.06);}
+
+/* ===== ANDALUSIAN ARCH FRAME ===== */
+.arch-frame{position:relative;padding:8px;margin-bottom:50px;}
+.arch-frame::before{content:'';position:absolute;top:-4px;left:-4px;right:-4px;bottom:-4px;border:2px solid var(--gold-dark);border-radius:24px;opacity:0.4;}
+.arch-frame-inner{background:linear-gradient(145deg,var(--blue-mid),var(--blue-deep));border:2px solid var(--gold);border-radius:20px;padding:40px 36px;position:relative;overflow:hidden;}
+.arch-frame-inner::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark));}
+.arch-frame-inner::after{content:'';position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark));}
+.hadith-section-label{display:inline-block;font-size:0.8em;color:var(--gold);padding:4px 20px;border:1px solid var(--gold-dark);border-radius:20px;margin-bottom:20px;letter-spacing:1px;}
+.hadith-text{font-family:'Amiri',serif;font-size:1.25em;color:var(--cream-dark);line-height:2.2;padding:20px 24px;border-right:4px solid var(--gold);background:rgba(200,162,77,0.05);border-radius:0 16px 16px 0;}
+.hadith-text .narrator{color:var(--gold-light);font-weight:700;}
+.hadith-text .prophet-words{color:var(--gold);font-size:1.05em;}
+
+/* ===== CARDS ===== */
+.card{
+background:linear-gradient(145deg,rgba(27,58,92,0.85),rgba(13,27,42,0.95));
+border:1px solid rgba(200,162,77,0.25);
+border-radius:20px;padding:36px 32px;margin-bottom:36px;
+position:relative;overflow:hidden;
+transition:transform 0.3s ease,box-shadow 0.3s ease,border-color 0.3s ease;
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);border-color:rgba(200,162,77,0.5);}
+.card-accent-bar{position:absolute;top:0;right:0;width:6px;height:100%;border-radius:0 20px 20px 0;}
+.card-accent-bar.gold{background:linear-gradient(180deg,var(--gold),var(--gold-dark));}
+.card-accent-bar.burgundy{background:linear-gradient(180deg,var(--burgundy-light),var(--burgundy));}
+.card-accent-bar.terracotta{background:linear-gradient(180deg,var(--terracotta),#8B3A1A);}
+.card-accent-bar.blue{background:linear-gradient(180deg,var(--blue-light),var(--blue-mid));}
+.card-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid rgba(200,162,77,0.15);}
+.card-number{
+display:flex;align-items:center;justify-content:center;
+width:48px;height:48px;min-width:48px;
+border-radius:50%;
+background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+color:var(--blue-deep);font-family:'Amiri',serif;font-weight:700;font-size:1.2em;
+}
+.card-title{font-family:'Amiri',serif;font-size:1.45em;color:var(--gold);}
+
+/* =============================================
+   === MEMORIZE (حفظ) vs SUBSIDIARY (فرعي) ===
+   ============================================= */
+
+/* --- MEMORIZE BLOCKS --- */
+.mem{
+position:relative;
+background:linear-gradient(135deg,rgba(200,162,77,0.10),rgba(200,162,77,0.04));
+border:1px solid rgba(200,162,77,0.35);
+border-right:4px solid var(--gold);
+border-radius:14px;
+padding:20px 22px 20px 20px;
+margin:16px 0;
+box-shadow:inset 0 0 30px rgba(200,162,77,0.04),0 2px 12px rgba(200,162,77,0.08);
+}
+.mem-badge{
+position:absolute;top:10px;left:14px;
+display:flex;align-items:center;gap:5px;
+font-size:0.72em;font-weight:700;
+color:var(--blue-deep);
+background:linear-gradient(135deg,var(--gold),var(--gold-light));
+padding:3px 12px;
+border-radius:20px;
+letter-spacing:1px;
+box-shadow:0 2px 8px rgba(200,162,77,0.3);
+}
+.mem .mem-title{
+font-size:1.02em;
+color:var(--gold);
+font-weight:700;
+margin-bottom:10px;
+display:flex;align-items:center;gap:8px;
+}
+.mem .mem-title::before{
+content:'';display:inline-block;width:8px;height:8px;
+background:var(--gold);transform:rotate(45deg);
+}
+.mem p,.mem li{
+color:var(--cream);
+font-size:0.97em;
+line-height:1.95;
+}
+.mem ul{list-style:none;padding:0;}
+.mem ul li{padding:5px 20px 5px 0;position:relative;}
+.mem ul li::before{
+content:'';position:absolute;right:0;top:13px;
+width:7px;height:7px;border-radius:50%;
+background:var(--gold);
+box-shadow:0 0 4px rgba(200,162,77,0.4);
+}
+.mem .term{color:var(--gold);font-weight:700;}
+.mem table{
+width:100%;border-collapse:separate;border-spacing:0;
+margin:10px 0;border-radius:10px;overflow:hidden;
+border:1px solid rgba(200,162,77,0.25);
+}
+.mem table thead th{
+background:linear-gradient(135deg,rgba(200,162,77,0.25),rgba(200,162,77,0.12));
+color:var(--gold);font-weight:700;padding:10px 14px;
+text-align:right;font-size:0.92em;
+border-bottom:2px solid var(--gold-dark);
+}
+.mem table tbody td{
+padding:9px 14px;border-bottom:1px solid rgba(200,162,77,0.12);
+font-size:0.93em;color:var(--cream);
+}
+.mem table tbody tr:last-child td{border-bottom:none;}
+.mem table tbody tr:hover{background:rgba(200,162,77,0.06);}
+.mem .verse{
+font-family:'Amiri',serif;color:var(--gold-light);font-size:1.02em;
+background:rgba(200,162,77,0.08);padding:8px 14px;
+border-radius:8px;margin:5px 0;display:block;
+}
+.mem .tag{
+display:inline-block;padding:3px 14px;border-radius:20px;
+font-size:0.82em;margin:3px;
+background:rgba(200,162,77,0.2);color:var(--gold-light);
+border:1px solid rgba(200,162,77,0.4);
+}
+/* memorize comparison */
+.mem .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+.mem .cmp-item{
+background:rgba(200,162,77,0.08);border:1px solid rgba(200,162,77,0.2);
+border-radius:10px;padding:12px 14px;
+}
+.mem .cmp-item .cmp-l{color:var(--gold);font-weight:700;font-size:0.9em;margin-bottom:4px;}
+.mem .cmp-item p{font-size:0.92em;}
+
+/* --- SUBSIDIARY BLOCKS --- */
+.sub{
+position:relative;
+background:rgba(46,90,136,0.06);
+border:1px solid rgba(46,90,136,0.18);
+border-right:3px solid rgba(46,90,136,0.4);
+border-radius:12px;
+padding:16px 20px 16px 20px;
+margin:16px 0;
+opacity:0.75;
+}
+.sub-badge{
+position:absolute;top:10px;left:14px;
+display:flex;align-items:center;gap:5px;
+font-size:0.68em;font-weight:600;
+color:rgba(139,184,232,0.9);
+background:rgba(46,90,136,0.2);
+border:1px solid rgba(46,90,136,0.3);
+padding:2px 10px;
+border-radius:20px;
+letter-spacing:0.5px;
+}
+.sub .sub-title{
+font-size:0.95em;
+color:rgba(139,184,232,0.9);
+font-weight:600;
+margin-bottom:8px;
+opacity:0.9;
+}
+.sub p,.sub li{
+color:rgba(253,248,238,0.7);
+font-size:0.92em;
+line-height:1.85;
+}
+.sub ul{list-style:none;padding:0;}
+.sub ul li{padding:4px 18px 4px 0;position:relative;}
+.sub ul li::before{
+content:'';position:absolute;right:0;top:12px;
+width:5px;height:5px;border-radius:50%;
+background:rgba(46,90,136,0.5);
+}
+.sub .term{color:rgba(139,184,232,0.85);font-weight:600;}
+
+/* ===== SHARED CARD ELEMENTS ===== */
+.subsection{margin-bottom:22px;}
+.subsection:last-child{margin-bottom:0;}
+
+/* ===== TAGS ===== */
+.tag{display:inline-block;padding:3px 14px;border-radius:20px;font-size:0.82em;margin:3px;}
+.tag.gold{background:rgba(200,162,77,0.15);color:var(--gold-light);border:1px solid rgba(200,162,77,0.3);}
+.tag.blue{background:rgba(46,90,136,0.2);color:#8BB8E8;border:1px solid rgba(46,90,136,0.3);}
+
+/* ===== VERSE ===== */
+.verse{font-family:'Amiri',serif;color:var(--gold-light);font-size:1.02em;background:rgba(200,162,77,0.06);padding:10px 16px;border-radius:8px;margin:6px 0;display:block;}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+.container{padding:20px 12px 60px;}
+.header h1{font-size:2em;}
+.header h2{font-size:1.05em;}
+.card{padding:24px 18px;}
+.card-title{font-size:1.2em;}
+.arch-frame-inner{padding:24px 18px;}
+.hadith-text{font-size:1.05em;padding:16px 14px;}
+.mem .cmp-grid,.sub .cmp-grid{grid-template-columns:1fr;}
+.legend{gap:14px;padding:12px 16px;}
+.mem,.sub{padding:14px 16px 14px 14px;}
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp{
+from{opacity:0;transform:translateY(30px);}
+to{opacity:1;transform:translateY(0);}
+}
+.card,.arch-frame{animation:fadeInUp 0.6s ease forwards;opacity:0;}
+.card:nth-child(1){animation-delay:0.1s;}
+.card:nth-child(2){animation-delay:0.2s;}
+.card:nth-child(3){animation-delay:0.3s;}
+.card:nth-child(4){animation-delay:0.4s;}
+.card:nth-child(5){animation-delay:0.5s;}
+.card:nth-child(6){animation-delay:0.6s;}
+.card:nth-child(7){animation-delay:0.7s;}
+.card:nth-child(8){animation-delay:0.8s;}
+.card:nth-child(9){animation-delay:0.9s;}
+
+.card-pattern{
+position:absolute;top:0;left:0;width:100%;height:100%;
+opacity:0.03;pointer-events:none;
+background-image:
+repeating-linear-gradient(60deg,transparent,transparent 20px,rgba(200,162,77,1) 20px,rgba(200,162,77,1) 21px),
+repeating-linear-gradient(-60deg,transparent,transparent 20px,rgba(200,162,77,1) 20px,rgba(200,162,77,1) 21px),
+repeating-linear-gradient(0deg,transparent,transparent 20px,rgba(200,162,77,1) 20px,rgba(200,162,77,1) 21px);
+}
+
+/* ===== FOOTER ===== */
+.footer{text-align:center;padding:40px 20px 20px;margin-top:30px;position:relative;}
+.footer-ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;}
+.footer-ornament span{display:block;height:1px;width:80px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent);}
+.footer-ornament .dot{width:6px;height:6px;background:var(--gold-dark);border-radius:50%;}
+.footer p{color:rgba(200,162,77,0.4);font-size:0.85em;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<header class="header">
+<div class="header-ornament">
+<span class="header-line"></span>
+<span class="header-diamond"></span>
+<span class="header-line"></span>
+</div>
+<h1>الحديث التحليلي</h1>
+<h2>تلخيص شامل للجزء الأول</h2>
+<span class="header-badge">نصوص الأحاديث · الشرح · المصطلحات · الأحكام</span>
+</header>
+
+<!-- LEGEND -->
+<div class="legend">
+<div class="legend-item"><div class="legend-dot mem"></div><span class="legend-label">يستوجب الحفظ</span></div>
+<div class="legend-item"><div class="legend-dot sub"></div><span class="legend-label">معلومات فرعية (للاطلاع)</span></div>
+</div>
+
+<!-- ===== الحديث الأول ===== -->
+<div class="arch-frame" style="animation-delay:0s;">
+<div class="arch-frame-inner">
+<span class="hadith-section-label">الحديث الأول — حديث النية</span>
+<div class="hadith-text">
+<span class="narrator">حدثنا الحميدي عبد الله بن الزبير، حدثنا سفيان، حدثنا يحيى بن سعيد الأنصاري... عن علقمة بن وقاص الليثي يقول: سمعت عمر بن الخطاب رضي الله عنه على المنبر يقول:</span><br>
+<span class="prophet-words">قال رسول الله صلى الله عليه وسلم: «إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله فهجرته إلى الله ورسوله، ومن كانت هجرته لدنيا يصيبها أو امرأة ينكحها فهجرته إلى ما هاجر إليه»</span>
+</div>
+</div>
+</div>
+
+<!-- ===== القسم الثاني: مصطلحات علم الحديث ===== -->
+<div class="card">
+<div class="card-pattern"></div>
+<div class="card-accent-bar gold"></div>
+<div class="card-header">
+<div class="card-number">٢</div>
+<h3 class="card-title">مصطلحات في علم الحديث</h3>
+</div>
+
+<!-- حفظ: تعريف المتواتر -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">تعريف الحديث المتواتر</div>
+<p>ما رواه <span class="term">جمع عن جمع</span> (عدد كبير) تحيل العادة تواطؤهم على الكذب، ولم يلتقوا ببعضهم وليس معروفاً عنهم سوى الصدق.</p>
+</div>
+
+<!-- فرعي: تفصيل التواتر -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">التواتر في القرآن والسنة</div>
+<div class="cmp-grid">
+<div class="cmp-item">
+<div class="cmp-l">التواتر في القرآن</div>
+<p>نقل الجماعة الكبيرة عن الجماعة الكبيرة أو الجيل الكامل عن الجيل الكامل.</p>
+</div>
+<div class="cmp-item">
+<div class="cmp-l">التواتر في السنة</div>
+<p>أن ينقله ثمانية عن أكثر أو أكثر من ثمانية عن أكثر. وتواتر القرآن أعلى درجة.</p>
+</div>
+</div>
+</div>
+
+<!-- حفظ: أقسام الآحاد -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">أقسام حديث الآحاد</div>
+<ul>
+<li><span class="term">مشهور</span>: ما رواه ثلاثة فأكثر في كل طبقة من طبقات السند، ولم يصل لحد التواتر.</li>
+<li><span class="term">عزيز</span>: ما رواه اثنان عن اثنين في كل طبقة من طبقات السند.</li>
+<li><span class="term">غريب (فرد)</span>: ما رواه راوٍ واحد فقط في أي طبقة من طبقات السند.</li>
+</ul>
+</div>
+
+<!-- فرعي: ملاحظة -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">ملاحظة</div>
+<p>«المتواتر» و«الآحاد» وصف لطريق وصول الحديث إلينا، وليس حكماً نهائياً على صحته أو ضعفه (وإن كان المتواتر مفيداً للعلم اليقيني).</p>
+</div>
+</div>
+
+<!-- ===== القسم الثالث: أسئلة هامة ===== -->
+<div class="card">
+<div class="card-pattern"></div>
+<div class="card-accent-bar burgundy"></div>
+<div class="card-header">
+<div class="card-number">٣</div>
+<h3 class="card-title">أسئلة هامة في السند والمصادر</h3>
+</div>
+
+<!-- فرعي: كيفية عدّ الأسانيد -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">كيفية عدّ أسانيد الحديث ومعرفة المتواتر</div>
+<p>يتم بتحديد عدد رواة الطبقة الواحدة. ومعرفة الحديث المتواتر تكون من خلال تتبع ودراسة الأسانيد وعدد الرواة في كل طبقة.</p>
+</div>
+
+<!-- حفظ: أول شرط -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">أول شرط لصحة الحديث</div>
+<p><span class="term">اتصال السند</span>: يعني أن يكون كل راوٍ قد لقي شيخه وسمع منه مباشرة.</p>
+</div>
+
+<!-- حفظ: الدواوين الستة -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">الدواوين الستة</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;">
+<span class="tag">صحيح البخاري</span>
+<span class="tag">صحيح مسلم</span>
+<span class="tag">سنن الترمذي (الجامع)</span>
+<span class="tag">سنن أبي داود</span>
+<span class="tag">سنن النسائي</span>
+<span class="tag">سنن ابن ماجه</span>
+</div>
+</div>
+
+<!-- حفظ: الكتب التسعة -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">الكتب التسعة (تضاف للستة ثلاثة)</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;">
+<span class="tag">موطأ مالك</span>
+<span class="tag">مسند أحمد</span>
+<span class="tag">سنن الدارمي</span>
+</div>
+</div>
+
+<!-- فرعي: كتب أخرى -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">كتب أخرى روت بالأسانيد</div>
+<p>كتب أئمة، كتب فقه، تفسير ابن جرير الطبري، غريب الحديث للقاسم بن سلام، وكتب ابن المنذر.</p>
+</div>
+
+<!-- حفظ: تصنيف الحديثين -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">تصنيف الحديثين</div>
+<table>
+<thead><tr><th>الحديث</th><th>التصنيف</th></tr></thead>
+<tbody>
+<tr><td>حديث النية</td><td>آحاد في إسناده، متواتر تواتراً <span class="term">معنوياً</span> في معناه</td></tr>
+<tr><td>«من كذب عليّ متعمداً فليتبوأ مقعده من النار»</td><td>متواتر <span class="term">لفظياً</span> مجمع عليه</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- ===== القسم الرابع: صيغ الأداء ===== -->
+<div class="card">
+<div class="card-pattern"></div>
+<div class="card-accent-bar terracotta"></div>
+<div class="card-header">
+<div class="card-number">٤</div>
+<h3 class="card-title">صيغ الأداء ودلالاتها</h3>
+</div>
+
+<!-- حفظ: الصيغ التسع -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">الصيغ التسع</div>
+<table>
+<thead><tr><th>#</th><th>الصيغة</th></tr></thead>
+<tbody>
+<tr><td>١</td><td>حدثنا / حدثني</td></tr>
+<tr><td>٢</td><td>أخبرنا / أخبرني</td></tr>
+<tr><td>٣</td><td>سمعت / سمعنا</td></tr>
+<tr><td>٤</td><td>قرأت / قرأنا</td></tr>
+<tr><td>٥</td><td>أنبأنا / نبأني / أنبأني</td></tr>
+<tr><td>٦</td><td>عن</td></tr>
+<tr><td>٧</td><td>أن</td></tr>
+<tr><td>٨</td><td>قال</td></tr>
+<tr><td>٩</td><td>قراءة عليه وأنا أسمع</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- حفظ: المذهبان -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">المذهبان في صيغ الأداء</div>
+<div class="cmp-grid">
+<div class="cmp-item">
+<div class="cmp-l">مذهب المتقدمين (البخاري ومالك والجمهور)</div>
+<p>الصيغ الثلاث الأولى (حدثنا، أخبرنا، سمعت) <span class="term">بمعنى واحد</span>.</p>
+</div>
+<div class="cmp-item">
+<div class="cmp-l">مذهب المتأخرين (مسلم بن الحجاج)</div>
+<p><span class="term">يفرقون</span> بينها ويعطون كل صيغة دلالة خاصة.</p>
+</div>
+</div>
+</div>
+
+<!-- حفظ: تفصيل المتأخرين -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">تفصيل مذهب المتأخرين في الصيغ</div>
+<ul>
+<li><span class="term">حدثنا</span>: صيغة أداء لمن سمع منه وقرأ عليه.</li>
+<li><span class="term">سمعت</span>: ما أُخذ من كلام الشيخ مباشرة (تطلق على الانفراد والاستماع معاً).</li>
+<li><span class="term">أخبرنا</span>: ما أُخذ بقراءة الشيخ أو بأي طريق من طرق التحمل.</li>
+<li><span class="term">حدثني</span>: إذا أتى التلميذ إلى الشيخ منفرداً (تدل على حب واجتهاد الطالب).</li>
+</ul>
+<p style="margin-top:10px;"><span class="term">أقوى طرق التحمل</span>: العرض والسماع.</p>
+</div>
+
+<!-- فرعي: سبب التنويع -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">سبب تنويع البخاري للصيغ مع عدم تفرقته بينها</div>
+<p>لأنه ينقل الحديث عن شيخه الحميدي بحسب صيغة الأداء التي أصدرها الشيخ.</p>
+</div>
+
+<!-- فرعي: الاسم المهمل -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">الاسم المهمل (مثل «حدثنا سفيان»)</div>
+<p>المقصود <span class="term">سفيان بن سعيد الثوري</span>، عالم ومحدث مشهور لا يحتاج لتوضيح. وقاعدة البخاري: ذكر الأسماء المعروفة بدون ألقاب أو كنى إن لم يكن هناك احتمال للخلط واللبس.</p>
+</div>
+</div>
+
+<!-- ===== القسم الخامس: مباحث النية ===== -->
+<div class="card">
+<div class="card-pattern"></div>
+<div class="card-accent-bar blue"></div>
+<div class="card-header">
+<div class="card-number">٥</div>
+<h3 class="card-title">مباحث النية والأعمال والشرائط</h3>
+</div>
+
+<!-- حفظ: النية لغة واصطلاحاً -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">النية لغة واصطلاحاً</div>
+<div class="cmp-grid">
+<div class="cmp-item">
+<div class="cmp-l">لغة</div>
+<p>قصد الشيء والعزم عليه، وتشمل خطور الفكرة والهم والعزم والسير تجاهه.</p>
+</div>
+<div class="cmp-item">
+<div class="cmp-l">اصطلاحاً</div>
+<p>١. قصد العمل نفسه. ٢. قصد تخليص العمل (لا فرق في تخليص العمل بين الفرض والنافلة).</p>
+</div>
+</div>
+</div>
+
+<!-- حفظ: الفرق بين النيات والنية -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">الفرق بين النيات والنية</div>
+<ul>
+<li><span class="term">النيات</span>: عمل واحد ينوي به نيات متعددة (في النوافل فقط).</li>
+<li><span class="term">النية</span>: عمل واحد بنية واحدة.</li>
+</ul>
+</div>
+
+<!-- حفظ: قواعد النيات -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">قواعد النيات</div>
+<ul>
+<li>لا تتعدد النيات في الفرائض ولا تزاحم نافلة فريضة في نية واحدة.</li>
+<li>تعدد النيات في نوافل العبادات لا حرج فيه.</li>
+<li>إذا تزاحمت نيتان فأولاهما أسبقهما في الأعمال الدينية.</li>
+</ul>
+</div>
+
+<!-- حفظ: مراحل العمل والأجر -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">مراحل العمل والأجر</div>
+<table>
+<thead><tr><th>المرحلة</th><th>الأجر</th></tr></thead>
+<tbody>
+<tr><td>خطور الفكرة</td><td>—</td></tr>
+<tr><td>الهم</td><td>—</td></tr>
+<tr><td>العزم</td><td>—</td></tr>
+<tr><td><span class="term">الفعل</span></td><td>يُضاعف الأجر من ١٠ إلى ٧٠٠ ضعف إلى أضعاف كثيرة</td></tr>
+<tr><td>أجر السيئة (مانع خارجي)</td><td>يُؤخذ سيئة</td></tr>
+<tr><td>أجر السيئة (مانع داخلي)</td><td>يُؤخذ حسنة</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- فرعي: أنواع الأعمال -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">أنواع الأعمال</div>
+<div class="cmp-grid">
+<div class="cmp-item">
+<div class="cmp-l">أعمال دينية</div>
+<p>تكون صالحة وخالصة لله مع المسارعة والعزيمة.</p>
+</div>
+<div class="cmp-item">
+<div class="cmp-l">أعمال دنيوية</div>
+<p>تحول النية العادات إلى عبادات.</p>
+</div>
+</div>
+</div>
+
+<!-- حفظ: الشروط -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">شروط العمل</div>
+<ul>
+<li><span class="term">شرطا الصحة</span>: الإخلاص لله، والمتابعة لسنّة الرسول صلى الله عليه وسلم.</li>
+<li><span class="term">شرطا الكمال</span>: المسارعة (وعكسها التخلف)، والأخذ بقوة (وعكسه التكاسل من صفات المنافقين).</li>
+<li><span class="term">أنواع الخلف</span>: الخَلْف بسكون اللام (خَلْف السوء)، والخَلَف بفتح اللام (الخَلَف الصالح).</li>
+<li><span class="term">قاعدة العادات</span>: كما أن عبادات الرسول أكمل العبادات فإن عاداته أكمل العادات.</li>
+</ul>
+</div>
+</div>
+
+<!-- ===== القسم السادس: دلالات الألفاظ ===== -->
+<div class="card">
+<div class="card-pattern"></div>
+<div class="card-accent-bar gold"></div>
+<div class="card-header">
+<div class="card-number">٦</div>
+<h3 class="card-title">خطوات دراسة الحديث ودلالات الألفاظ</h3>
+</div>
+
+<!-- حفظ: خطوات الدراسة -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">خطوات دراسة الحديث التحليلي</div>
+<ul>
+<li>جمع روايات الأحاديث.</li>
+<li>تحديد اللفظ المحوري في الحديث.</li>
+<li>الوقوف على دلالات الألفاظ وشرح الكلمة المحورية شرحاً مفصلاً (مثل الاعتماد على <span class="term">معجم مقاييس اللغة</span> لابن فارس).</li>
+<li>تحديد ألفاظ الحديث لفظة لفظة.</li>
+</ul>
+</div>
+
+<!-- فرعي: سبب الورود -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">سبب الورود</div>
+<p>الحديث لا يفهم إلا في ضوء سبب وروده إن وجد (مثل حديث مهاجر أم قيس)، وهناك أحاديث ليس لها سبب ورود.</p>
+</div>
+
+<!-- حفظ: دلالات الأدوات -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">دلالات الأدوات وأسلوب الحصر</div>
+<ul>
+<li><span class="term">إنّ</span>: أداة توكيد ونصب، والكلام بعدها مما ينبغي الاهتمام والاعتناء به.</li>
+<li><span class="term">ما</span>: كفّت «إنّ» عن العمل.</li>
+<li><span class="term">إنما</span>: أسلوب قصر وحصر.</li>
+</ul>
+</div>
+
+<!-- حفظ: صيغ الحصر -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">صيغ الحصر والقصر</div>
+<ul>
+<li>نفي الاستثناء: مثل «لا إله إلا الله».</li>
+<li>«إنما»: مثل «إنما الله إله واحد».</li>
+</ul>
+</div>
+
+<!-- فرعي: دلالة إنما الأعمال -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">دلالة «إنما الأعمال بالنيات»</div>
+<p>الأعمال التي يؤجر عليها الإنسان لا تكون إلا بالنيات (قيد بالصفة المحذوفة بعد كلمة الأعمال).</p>
+</div>
+
+<!-- حفظ: أنواع الحصر -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">أنواع الحصر</div>
+<div class="cmp-grid">
+<div class="cmp-item">
+<div class="cmp-l">حصر مطلق</div>
+<p>مثل «لا إله إلا الله»، أو إن قصد أن الأعمال كلها لابد لها من نية.</p>
+</div>
+<div class="cmp-item">
+<div class="cmp-l">حصر مقيد</div>
+<p>مثل «وما محمد إلا رسول»، أو إن قصد أن جزاء الأعمال متوقف على النية.</p>
+</div>
+</div>
+</div>
+
+<!-- حفظ: دلالة كل -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">دلالة كلمة «كل»</div>
+<div class="cmp-grid">
+<div class="cmp-item">
+<div class="cmp-l">عموم مطلق</div>
+<p>تشمل جميع الأفراد دون استثناء:</p>
+<ul style="margin-top:8px;">
+<li><span class="verse">﴿إِنَّ اللَّهَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ﴾</span></li>
+<li><span class="verse">﴿كُلُّ مَنْ عَلَيْهَا فَانٍ﴾</span></li>
+<li><span class="verse">﴿كُلُّ نَفْسٍ ذَائِقَةُ المَوْتِ﴾</span></li>
+<li>«وإنما لكل امرئ ما نوى»</li>
+</ul>
+</div>
+<div class="cmp-item">
+<div class="cmp-l">عموم مقيد</div>
+<p>تشمل الأشياء بشرط أو قيد:</p>
+<ul style="margin-top:8px;">
+<li><span class="verse">﴿تُدَمِّرُ كُلَّ شَيْءٍ بِأَمْرِ رَبِّهَا﴾</span> (لم تدمر مساكنهم)</li>
+<li><span class="verse">﴿وَأُوتِيَتْ مِنْ كُلِّ شَيْءٍ﴾</span> (أي ما يؤتاه الملوك)</li>
+<li><span class="verse">﴿يَأْخُذُ كُلَّ سَفِينَةٍ غَصْبًا﴾</span> (أي الصالحة)</li>
+<li>«كل بدعة ضلالة» (المعارضة لأصل)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== القسم السابع: الهجرة والفوائد ===== -->
+<div class="card">
+<div class="card-pattern"></div>
+<div class="card-accent-bar burgundy"></div>
+<div class="card-header">
+<div class="card-number">٧</div>
+<h3 class="card-title">الهجرة والفوائد المستنبطة من الحديث</h3>
+</div>
+
+<!-- فرعي: سبب تخصيص الهجرة -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">سبب تخصيص الهجرة بالذكر</div>
+<ul>
+<li>لأن رجلاً أسلم وهاجر ليتزوج أم قيس.</li>
+<li>لأن الهجرة كانت أشد العبادات حينئذٍ.</li>
+<li>لأن الطابع العام هو الهجرة مما يغضب الله إلى ما يرضيه قولاً وفكراً وجسداً.</li>
+</ul>
+</div>
+
+<!-- فرعي: علة عدم التكرار -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">علة عدم تكرار «فهجرته إلى دنيا...» وإعادة «إلى الله ورسوله»</div>
+<ul>
+<li><span class="term">عدم التكرار</span>: لتحقير الشيء المهاجر إليه وإبهامه، ولتعدد أنواع الهجرات ونكارتها.</li>
+<li><span class="term">إعادة «إلى الله ورسوله»</span>: للتأكيد على شرف هذه الهجرة والحث عليها والترغيب فيها.</li>
+</ul>
+</div>
+
+<!-- فرعي: تخصيص ذكر المرأة -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">تخصيص ذكر المرأة بعد الدنيا</div>
+<p>من باب ذكر الخاص بعد العام للاهتمام به، لأن النساء أعظم شهوات ومطلوبات الدنيا للرجال.</p>
+</div>
+
+<!-- حفظ: الفرق بين الهجرة والهجر والعزلة -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">الفرق بين الهجرة والهجر والعزلة</div>
+<table>
+<thead><tr><th>المصطلح</th><th>المعنى</th></tr></thead>
+<tbody>
+<tr><td><span class="term">الهجرة</span></td><td>ترك مكان المعصية إلى مكان الطاعة.</td></tr>
+<tr><td><span class="term">الهجر</span></td><td>الترك؛ ويجوز بدين بشرط أن يكون نافعاً وهجراً جميلاً (وقد يزيد عن ثلاثة أيام).</td></tr>
+<tr><td><span class="term">العزلة</span></td><td>اعتزال الأماكن التي فيها معصية.</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- فرعي: الفوائد المستنبطة -->
+<div class="sub">
+<span class="sub-badge">فرعي</span>
+<div class="sub-title">الفوائد المستنبطة من الحديث</div>
+<ul>
+<li>أهمية النية وأنها أساس الأعمال.</li>
+<li>التحذير من الرياء.</li>
+<li>الجزاء على النية.</li>
+</ul>
+</div>
+
+<!-- حفظ: النية في الفرض والنافلة -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">الفرق بين النية في الفرض والنافلة</div>
+<div class="cmp-grid">
+<div class="cmp-item">
+<div class="cmp-l">الفرض</div>
+<p>لا بد من انعقاد النية قبل الفريضة.</p>
+</div>
+<div class="cmp-item">
+<div class="cmp-l">النافلة</div>
+<p>تنعقد أثناء النافلة بشرط الإتيان بأكثرها.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== القسم الثامن: رموز الإسناد ===== -->
+<div class="card">
+<div class="card-pattern"></div>
+<div class="card-accent-bar terracotta"></div>
+<div class="card-header">
+<div class="card-number">٨</div>
+<h3 class="card-title">رموز الإسناد</h3>
+</div>
+
+<!-- حفظ: رموز الإسناد -->
+<div class="mem">
+<span class="mem-badge">حِفظ</span>
+<div class="mem-title">الرموز</div>
+<table>
+<thead><tr><th>الرمز</th><th>المعنى</th></tr></thead>
+<tbody>
+<tr><td><span class="term">ح</span></td><td>لتحويل الإسناد</td></tr>
+<tr><td><span class="term">ثنا</span></td><td>حدثنا</td></tr>
+<tr><td><span class="term">نا</span></td><td>أخبرنا</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-ornament">
+<span></span>
+<span class="dot"></span>
+<span></span>
+</div>
+<p>الحديث التحليلي — تلخيص الجزء الأول</p>
+</footer>
+
+</div>
+</body>
+</html>
